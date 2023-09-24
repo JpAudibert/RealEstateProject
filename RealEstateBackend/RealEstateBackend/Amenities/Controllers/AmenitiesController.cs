@@ -56,6 +56,12 @@ namespace RealEstateBackend.Amenities.Controllers
             Amenity newAmenity = new(amenity.Name);
             Amenity updated = await _amenitiesRepository.Update(newAmenity, id);
 
+            if (updated is null)
+            {
+                _logger.LogInformation("There is not an amenity with this ID: {id}", id);
+                return NotFound($"There is not an amenity with this ID: {id}");
+            }
+
             _logger.LogInformation("Amenity updated: {amenity}", JsonConvert.SerializeObject(updated));
 
             return Ok(updated);
