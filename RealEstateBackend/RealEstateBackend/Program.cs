@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using RealEstateBackend.Amenities.Models;
+using RealEstateBackend.Amenities.Repository;
 using RealEstateBackend.EF;
+using RealEstateBackend.EF.Interfaces;
 using Serilog;
 using Steeltoe.Management.Endpoint;
 
@@ -14,6 +17,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IRepository<Amenity>, AmenitiesRepository>();
 
 builder.Services.AddDbContext<RealEstateContext>(service =>
 {
