@@ -157,13 +157,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/realestatekinds/v1",
+							"raw": "{{host}}/realestatekinds/v1/",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"realestatekinds",
-								"v1"
+								"v1",
+								""
 							]
 						}
 					},
@@ -202,7 +203,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\": \"Campo de Futebol\"\r\n}",
+							"raw": "{\r\n    \"Name\": \"Pavilhão\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
