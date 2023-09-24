@@ -4,9 +4,9 @@ using RealEstateBackend.Amenities.Models;
 
 namespace RealEstateBackend.EF.Types
 {
-    public class AmenitiesType : IEntityTypeConfiguration<Amenities.Models.Amenity>
+    public class AmenitiesType : IEntityTypeConfiguration<Amenity>
     {
-        public void Configure(EntityTypeBuilder<Amenities.Models.Amenity> builder)
+        public void Configure(EntityTypeBuilder<Amenity> builder)
         {
             builder.ToTable("amenities");
             builder.HasKey(x => x.Id);
