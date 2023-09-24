@@ -1,0 +1,321 @@
+{
+	"info": {
+		"_postman_id": "53d9ae24-e1b8-454b-983f-3cbb45bfd4e0",
+		"name": "RealEstateProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27841315"
+	},
+	"item": [
+		{
+			"name": "Amenities",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/amenities/v1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"amenities",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{host}}/amenities/v1/1b6e7353-50dc-4618-9ed1-643f5a7fc867",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"amenities",
+								"v1",
+								"1b6e7353-50dc-4618-9ed1-643f5a7fc867"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Campo de Futebol\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/amenities/v1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"amenities",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Campo de areia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/amenities/v1/ff0f2025-e805-4e48-9c0c-637c7f2a71c5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"amenities",
+								"v1",
+								"ff0f2025-e805-4e48-9c0c-637c7f2a71c5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/amenities/v1/ff0f2025-e805-4e48-9c0c-637c7f2a71c5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"amenities",
+								"v1",
+								"ff0f2025-e805-4e48-9c0c-637c7f2a71c5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Populate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/amenities/v1/createmany",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"amenities",
+								"v1",
+								"createmany"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Real Estate Types",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/realestatekinds/v1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"realestatekinds",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{host}}/realestatekinds/v1/1b6e7353-50dc-4618-9ed1-643f5a7fc867",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"realestatekinds",
+								"v1",
+								"1b6e7353-50dc-4618-9ed1-643f5a7fc867"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Campo de Futebol\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/realestatekinds/v1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"realestatekinds",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"PAv\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/realestatekinds/v1/637b60c9-776d-4724-8efc-365a1d1fa95b",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"realestatekinds",
+								"v1",
+								"637b60c9-776d-4724-8efc-365a1d1fa95b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/realestatekinds/v1/637b60c9-776d-4724-8efc-365a1d1fa95b",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"realestatekinds",
+								"v1",
+								"637b60c9-776d-4724-8efc-365a1d1fa95b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Populate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/realestatekinds/v1/createmany",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"realestatekinds",
+								"v1",
+								"createmany"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:5098/api",
+			"type": "string"
+		}
+	]
+}
