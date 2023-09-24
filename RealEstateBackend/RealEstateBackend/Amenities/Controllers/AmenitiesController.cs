@@ -28,7 +28,7 @@ namespace RealEstateBackend.Amenities.Controllers
         }
 
         [HttpGet("v1/{id}")]
-        public async Task<IActionResult> GetAllAmenities(Guid id)
+        public async Task<IActionResult> GetAmenity(Guid id)
         {
             _logger.LogInformation("Getting amenity: {id}", id);
 
