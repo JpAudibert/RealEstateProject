@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using RealEstateBackend.EF;
 using Serilog;
 using Steeltoe.Management.Endpoint;
 
@@ -12,6 +14,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<RealEstateContext>(service =>
+{
+    service.UseNpgsql(builder.Configuration.GetConnectionString("RealEstateProject"));
+});
 
 var app = builder.AddAllActuators().Build();
 
