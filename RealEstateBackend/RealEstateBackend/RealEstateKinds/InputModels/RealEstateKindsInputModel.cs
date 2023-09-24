@@ -4,11 +4,8 @@ namespace RealEstateBackend.RealEstateTypes.InputModels
 {
     public class RealEstateKindsInputModel
     {
-        public class AmenitiesInputModel
-        {
-            [Required(ErrorMessage = "Amenities Name is required")]
-            [MaxLength(50, ErrorMessage = "Maximum of 50 characters")]
-            public string Name { get; set; } = string.Empty;
-        }
+        [Required(ErrorMessage = "Amenities Name is required")]
+        [MaxLength(50, ErrorMessage = "Maximum of 50 characters")]
+        public string Name { get; set; } = string.Empty;
     }
 }
