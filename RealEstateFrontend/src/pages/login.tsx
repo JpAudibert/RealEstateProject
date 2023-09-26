@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Flex,
   Heading,
@@ -68,20 +68,17 @@ const LoginPage = () => {
             <Stack spacing={4} p="1rem" backgroundColor="whiteAlpha.900" boxShadow="md">
               <FormControl>
                 <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
+                  <InputLeftElement pointerEvents="none">
+                    <CFaUserAlt color="gray.300" />
+                  </InputLeftElement>
                   <Input ref={emailRef} type="email" placeholder="Email" />
                 </InputGroup>
               </FormControl>
               <FormControl>
                 <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    color="gray.300"
-                    children={<CFaLock color="gray.300" />}
-                  />
+                  <InputLeftElement pointerEvents="none" color="gray.300">
+                    <CFaLock color="gray.300" />
+                  </InputLeftElement>
                   <Input
                     ref={passwordRef}
                     type={showPassword ? 'text' : 'password'}

@@ -53,12 +53,14 @@ const NewProperty: React.FC = () => {
 
   const handleSubmit = useCallback(() => {
     if (validateForm()) {
-      const leaseRentValue = Number.parseFloat(property.leaseValue?.rent?.replace(/\D/g, '')) / 100;
+      const leaseRentValue =
+        Number.parseFloat(property.leaseValue?.rent?.replace(/\D/g, '') ?? '') / 100;
       const leaseSecurityDeposit =
-        Number.parseFloat(property.leaseValue?.securityDeposit?.replace(/\D/g, '')) / 100;
-      const sellValuePrice = Number.parseFloat(property.sellValue?.value.replace(/\D/g, '')) / 100;
+        Number.parseFloat(property.leaseValue?.securityDeposit?.replace(/\D/g, '') ?? '') / 100;
+      const sellValuePrice =
+        Number.parseFloat(property.sellValue?.value.replace(/\D/g, '') ?? '') / 100;
       const sellSecurityDeposit =
-        Number.parseFloat(property.sellValue?.securityDeposit.replace(/\D/g, '')) / 100;
+        Number.parseFloat(property.sellValue?.securityDeposit.replace(/\D/g, '') ?? '') / 100;
 
       const sellValue = {
         value: sellValuePrice.toString(),
@@ -71,15 +73,9 @@ const NewProperty: React.FC = () => {
       };
       var newPropertyWithValues = {
         ...property,
-        sellValue: sellValue,
-        leaseValue: leaseValue,
+        sellValue: radioValue === 'Venda' ? sellValue : null,
+        leaseValue: radioValue !== 'Venda' ? leaseValue : null,
       };
-
-      if (radioValue === 'Venda') {
-        newPropertyWithValues.leaseValue = null;
-      } else {
-        newPropertyWithValues.sellValue = null;
-      }
 
       const propertyToSave: NewProperty = {
         ...newPropertyWithValues,
@@ -93,7 +89,7 @@ const NewProperty: React.FC = () => {
             alt: '',
           },
           {
-            url: '',
+            url: 'https://bit.ly/2Z4KKcF',
             alt: '',
           },
         ],
@@ -711,7 +707,7 @@ const NewProperty: React.FC = () => {
                     setProperty((state) => {
                       return {
                         ...state,
-                        // imageurl: '',
+                        // imageUrl: 'https://bit.ly/2Z4KKcF',
                       };
                     })
                   }
