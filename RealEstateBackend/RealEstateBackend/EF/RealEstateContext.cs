@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstateBackend.Amenities.Models;
 using RealEstateBackend.EF.Types;
+using RealEstateBackend.RealEstates.Models;
 using RealEstateBackend.RealEstateTypes.Models;
 
 namespace RealEstateBackend.EF
@@ -9,6 +10,7 @@ namespace RealEstateBackend.EF
     {
         public DbSet<Amenity> Amenities { get; set; }
         public DbSet<RealEstateKind> RealEstateKinds { get; set; }
+        public DbSet<RealEstate> RealEstates { get; set; }
 
         public RealEstateContext(DbContextOptions options) : base(options)
         {
@@ -23,7 +25,8 @@ namespace RealEstateBackend.EF
             base.OnModelCreating(modelBuilder);
             modelBuilder
                 .ApplyConfiguration(new AmenitiesType())
-                .ApplyConfiguration(new RealEstateKindsType());
+                .ApplyConfiguration(new RealEstateKindsType())
+                .ApplyConfiguration(new RealEstateType());
         }
     }
 }
