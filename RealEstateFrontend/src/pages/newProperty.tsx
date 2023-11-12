@@ -17,9 +17,8 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 import Head from 'next/head';
-import Image from 'next/image';
 import router from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   FaCamera,
   FaDollarSign,
@@ -50,56 +49,6 @@ const NewProperty: React.FC = () => {
   const [buttonPressed, setButtonPressed] = useState(false);
   const [leaseState, setLeaseState] = useState(false);
   const [radioValue, setRadioValue] = useState<string>('Venda');
-
-  const handleSubmit = useCallback(() => {
-    if (validateForm()) {
-      const leaseRentValue =
-        Number.parseFloat(property.leaseValue?.rent?.replace(/\D/g, '') ?? '') / 100;
-      const leaseSecurityDeposit =
-        Number.parseFloat(property.leaseValue?.securityDeposit?.replace(/\D/g, '') ?? '') / 100;
-      const sellValuePrice =
-        Number.parseFloat(property.sellValue?.value.replace(/\D/g, '') ?? '') / 100;
-      const sellSecurityDeposit =
-        Number.parseFloat(property.sellValue?.securityDeposit.replace(/\D/g, '') ?? '') / 100;
-
-      const sellValue = {
-        value: sellValuePrice.toString(),
-        securityDeposit: sellSecurityDeposit.toString(),
-      };
-      const leaseValue = {
-        rent: leaseRentValue.toString(),
-        securityDeposit: leaseSecurityDeposit.toString(),
-        leaseDuration: property.leaseValue?.leaseDuration,
-      };
-      var newPropertyWithValues = {
-        ...property,
-        sellValue: radioValue === 'Venda' ? sellValue : null,
-        leaseValue: radioValue !== 'Venda' ? leaseValue : null,
-      };
-
-      const propertyToSave: NewProperty = {
-        ...newPropertyWithValues,
-        type: radioValue,
-        imageAlt: '',
-        amenities: amenitiesState.filter((amenity) => amenity.value),
-        price: radioValue === 'Venda' ? sellValuePrice : leaseRentValue,
-        images: [
-          {
-            url: property.imageUrl,
-            alt: '',
-          },
-          {
-            url: 'https://bit.ly/2Z4KKcF',
-            alt: '',
-          },
-        ],
-      };
-      axios.post('/api/property', propertyToSave).then(() => {
-        router.push('/home');
-      });
-    }
-    setButtonPressed(true);
-  }, [property, amenitiesState, radioValue]);
 
   const handleRadioChange = (value: string) => {
     setRadioValue(value);
@@ -141,6 +90,56 @@ const NewProperty: React.FC = () => {
 
     return true;
   }, [property, isStateValid, isZipValid]);
+
+  const handleSubmit = useCallback(() => {
+    if (validateForm()) {
+      const leaseRentValue =
+        Number.parseFloat(property.leaseValue?.rent?.replace(/\D/g, '') ?? '') / 100;
+      const leaseSecurityDeposit =
+        Number.parseFloat(property.leaseValue?.securityDeposit?.replace(/\D/g, '') ?? '') / 100;
+      const sellValuePrice =
+        Number.parseFloat(property.sellValue?.value.replace(/\D/g, '') ?? '') / 100;
+      const sellSecurityDeposit =
+        Number.parseFloat(property.sellValue?.securityDeposit.replace(/\D/g, '') ?? '') / 100;
+
+      const sellValue = {
+        value: sellValuePrice.toString(),
+        securityDeposit: sellSecurityDeposit.toString(),
+      };
+      const leaseValue = {
+        rent: leaseRentValue.toString(),
+        securityDeposit: leaseSecurityDeposit.toString(),
+        leaseDuration: property.leaseValue?.leaseDuration,
+      };
+      const newPropertyWithValues = {
+        ...property,
+        sellValue: radioValue === 'Venda' ? sellValue : null,
+        leaseValue: radioValue !== 'Venda' ? leaseValue : null,
+      };
+
+      const propertyToSave: NewProperty = {
+        ...newPropertyWithValues,
+        type: radioValue,
+        imageAlt: '',
+        amenities: amenitiesState.filter((amenity) => amenity.value),
+        price: radioValue === 'Venda' ? sellValuePrice : leaseRentValue,
+        images: [
+          {
+            url: property.imageUrl,
+            alt: '',
+          },
+          {
+            url: 'https://bit.ly/2Z4KKcF',
+            alt: '',
+          },
+        ],
+      };
+      axios.post('/api/property', propertyToSave).then(() => {
+        router.push('/home');
+      });
+    }
+    setButtonPressed(true);
+  }, [validateForm, property, radioValue, amenitiesState]);
 
   return (
     <SidebarWithHeader>
@@ -510,7 +509,7 @@ const NewProperty: React.FC = () => {
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
-                        setProperty((state) => {
+                        setProperty((state: string) => {
                           return {
                             ...state,
                             leaseValue: { ...state.leaseValue, leaseDuration: e.target.value },

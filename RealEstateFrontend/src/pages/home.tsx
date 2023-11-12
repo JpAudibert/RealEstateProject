@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import router from 'next/router';
 import SidebarWithHeader from '../components/SideBar';
 import HomeList from '../components/MainList/homeList';

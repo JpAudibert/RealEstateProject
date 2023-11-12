@@ -4,7 +4,7 @@ import { Property } from './property';
 const DEFAULT_DATA: Property[] = [
   {
     id: 1,
-    imageUrl: 'https://bit.ly/2Z4KKcF',
+    imageUrl: '',
     imageAlt: 'Rear view of modern home with pool',
     type: 'Para Venda',
     name: 'Casa de Praia em Guarujá',
@@ -34,14 +34,14 @@ const DEFAULT_DATA: Property[] = [
 
     images: [
       {
-        url: 'https://bit.ly/2Z4KKcF',
+        url: '',
         alt: 'Rear view of modern home with pool',
       },
     ],
   },
   {
     id: 2,
-    imageUrl: 'https://bit.ly/2Z4KKcF',
+    imageUrl: '',
     imageAlt: 'Rear view of modern home with pool',
     type: 'Para Venda',
     name: 'Casa de Praia em Guarujá',
@@ -71,14 +71,14 @@ const DEFAULT_DATA: Property[] = [
 
     images: [
       {
-        url: 'https://bit.ly/2Z4KKcF',
+        url: '',
         alt: 'Rear view of modern home with pool',
       },
     ],
   },
   {
     id: 3,
-    imageUrl: 'https://bit.ly/2Z4KKcF',
+    imageUrl: '',
     imageAlt: 'Rear view of modern home with pool',
     type: 'Para Venda',
     name: 'Casa de Praia em Guarujá',
@@ -108,14 +108,14 @@ const DEFAULT_DATA: Property[] = [
 
     images: [
       {
-        url: 'https://bit.ly/2Z4KKcF',
+        url: '',
         alt: 'Rear view of modern home with pool',
       },
     ],
   },
   {
     id: 4,
-    imageUrl: 'https://bit.ly/2Z4KKcF',
+    imageUrl: '',
     imageAlt: 'Rear view of modern home with pool',
     type: 'Para Venda',
     name: 'Casa de Praia em Guarujá',
@@ -145,14 +145,14 @@ const DEFAULT_DATA: Property[] = [
 
     images: [
       {
-        url: 'https://bit.ly/2Z4KKcF',
+        url: '',
         alt: 'Rear view of modern home with pool',
       },
     ],
   },
   {
     id: 5,
-    imageUrl: 'https://bit.ly/2Z4KKcF',
+    imageUrl: '',
     imageAlt: 'Rear view of modern home with pool',
     type: 'Para Venda',
     name: 'Casa de Praia em Guarujá',
@@ -182,14 +182,14 @@ const DEFAULT_DATA: Property[] = [
 
     images: [
       {
-        url: 'https://bit.ly/2Z4KKcF',
+        url: '',
         alt: 'Rear view of modern home with pool',
       },
     ],
   },
   {
     id: 6,
-    imageUrl: 'https://bit.ly/2Z4KKcF',
+    imageUrl: '',
     imageAlt: 'Rear view of modern home with pool',
     type: 'Para Venda',
     name: 'Casa de Praia em Guarujá',
@@ -219,14 +219,14 @@ const DEFAULT_DATA: Property[] = [
 
     images: [
       {
-        url: 'https://bit.ly/2Z4KKcF',
+        url: '',
         alt: 'Rear view of modern home with pool',
       },
     ],
   },
   {
     id: 7,
-    imageUrl: 'https://bit.ly/2Z4KKcF',
+    imageUrl: '',
     imageAlt: 'Rear view of modern home with pool',
     type: 'Para Venda',
     name: 'Casa de Praia em Guarujá',
@@ -255,14 +255,14 @@ const DEFAULT_DATA: Property[] = [
     ],
     images: [
       {
-        url: 'https://bit.ly/2Z4KKcF',
+        url: '',
         alt: 'Rear view of modern home with pool',
       },
     ],
   },
   {
     id: 8,
-    imageUrl: 'https://bit.ly/2Z4KKcF',
+    imageUrl: '',
     imageAlt: 'Rear view of modern home with pool',
     type: 'Para Venda',
     name: 'Casa de Praia em Guarujá',
@@ -291,7 +291,7 @@ const DEFAULT_DATA: Property[] = [
     ],
     images: [
       {
-        url: 'https://bit.ly/2Z4KKcF',
+        url: '',
         alt: 'Rear view of modern home with pool',
       },
     ],
@@ -312,7 +312,7 @@ const getListData = async (type: string, filter: string): Promise<Property[]> =>
     console.log(error);
   }
 
-  return [];
+  return DEFAULT_DATA;
 };
 
 const getHouseData = async (id: number) => {
