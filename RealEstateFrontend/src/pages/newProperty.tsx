@@ -30,14 +30,13 @@ import {
   FaTree,
 } from 'react-icons/fa';
 import Categories from '../components/Categories/Categories';
-import SidebarWithHeader from '../components/SideBar';
 import brazilStates from '../domain/brazilStates';
 import formatCep from '../domain/cepFormatter';
 import {
   amenities,
   Amenity,
   INITITAL_STATE,
-  LeaseValue,
+  RentValue,
   NewProperty,
   SellValue,
 } from '../domain/property';
@@ -61,13 +60,10 @@ const NewProperty: React.FC = () => {
   const [leaseState, setLeaseState] = useState(false);
   const [radioValue, setRadioValue] = useState<string>('Venda');
 
-  const handleRadioChange = (value: string) => {
+  const handleRadioChange = useCallback((value: string) => {
     setRadioValue(value);
-    setLeaseState(false);
-    if (value === 'Aluguel') {
-      setLeaseState(true);
-    }
-  };
+    setLeaseState(value === 'Aluguel');
+  }, []);
 
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'framework',
@@ -85,12 +81,12 @@ const NewProperty: React.FC = () => {
   }, [property.state]);
 
   const isZipValid = useMemo(() => {
-    return property.zip.length === 9 && property.zip.includes('-');
-  }, [property.zip]);
+    return property.zipCode.length === 9 && property.zipCode.includes('-');
+  }, [property.zipCode]);
 
   const validateForm = useCallback(() => {
     if (
-      property.name === '' ||
+      property.title === '' ||
       property.address === '' ||
       property.city === '' ||
       !isStateValid ||
@@ -104,8 +100,8 @@ const NewProperty: React.FC = () => {
 
   const handleSubmit = useCallback(() => {
     if (validateForm()) {
-      const leaseRentValue = stringToFloat(property.leaseValue?.rent);
-      const leaseSecurityDeposit = stringToFloat(property.leaseValue?.securityDeposit);
+      const leaseRentValue = stringToFloat(property.rentValue?.rent);
+      const leaseSecurityDeposit = stringToFloat(property.rentValue?.securityDeposit);
       const sellValuePrice = stringToFloat(property.sellValue?.value);
       const sellSecurityDeposit = stringToFloat(property.sellValue?.securityDeposit);
 
@@ -113,26 +109,24 @@ const NewProperty: React.FC = () => {
         value: sellValuePrice.toString(),
         securityDeposit: sellSecurityDeposit.toString(),
       };
-      const leaseValue: LeaseValue = {
+      const rentValue: RentValue = {
         rent: leaseRentValue.toString(),
         securityDeposit: leaseSecurityDeposit.toString(),
-        leaseDuration: property.leaseValue?.leaseDuration ?? '',
+        leaseDuration: property.rentValue?.leaseDuration ?? '',
       };
       const newPropertyWithValues = {
         ...property,
         sellValue: radioValue === 'Venda' ? sellValue : undefined,
-        leaseValue: radioValue !== 'Venda' ? leaseValue : undefined,
+        rentValue: radioValue !== 'Venda' ? rentValue : undefined,
       };
 
       const propertyToSave: NewProperty = {
         ...newPropertyWithValues,
-        type: radioValue,
-        imageAlt: '',
+        commercialType: radioValue,
         amenities: amenitiesState.filter((amenity) => amenity.value),
-        price: radioValue === 'Venda' ? sellValuePrice : leaseRentValue,
         images: [
           {
-            url: property.imageUrl,
+            url: property.imageBase64,
             alt: '',
           },
         ],
@@ -146,7 +140,7 @@ const NewProperty: React.FC = () => {
   }, [validateForm, property, radioValue, amenitiesState]);
 
   return (
-    <SidebarWithHeader>
+    <>
       <Head>
         <title>Add Property</title>
       </Head>
@@ -192,12 +186,12 @@ const NewProperty: React.FC = () => {
                   borderRadius={'md'}
                   variant="flushed"
                   type="text"
-                  value={property.name}
+                  value={property.title}
                   placeholder=" "
                   bg="gray.100"
                   onChange={(e) =>
                     setProperty((state) => {
-                      return { ...state, name: e.target.value };
+                      return { ...state, title: e.target.value };
                     })
                   }
                 />
@@ -254,12 +248,12 @@ const NewProperty: React.FC = () => {
                   borderRadius={'md'}
                   variant="flushed"
                   type="number"
-                  value={property.squareFeet}
+                  value={property.squareFoot}
                   placeholder=" "
                   _placeholder={{ color: 'gray.500' }}
                   onChange={(e) =>
                     setProperty((state) => {
-                      return { ...state, squareFeet: Number(e.target.value) };
+                      return { ...state, squareFoot: Number(e.target.value) };
                     })
                   }
                 />
@@ -305,14 +299,14 @@ const NewProperty: React.FC = () => {
                   borderRadius={'md'}
                   variant="flushed"
                   type="number"
-                  value={property.zip.replace(/\D/g, '')}
+                  value={property.zipCode.replace(/\D/g, '')}
                   placeholder=" "
                   _placeholder={{ color: 'gray.500' }}
-                  isInvalid={!isZipValid && (property.zip !== '' || buttonPressed)}
+                  isInvalid={!isZipValid && (property.zipCode !== '' || buttonPressed)}
                   errorBorderColor="red.300"
                   onChange={(e) =>
                     setProperty((state) => {
-                      return { ...state, zip: formatCep(e.target.value) };
+                      return { ...state, zipCode: formatCep(e.target.value) };
                     })
                   }
                 />
@@ -446,14 +440,14 @@ const NewProperty: React.FC = () => {
                       value={new Intl.NumberFormat('pt-BR', {
                         style: 'currency',
                         currency: 'BRL',
-                      }).format(stringToFloat(property.leaseValue?.rent))}
+                      }).format(stringToFloat(property.rentValue?.rent))}
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
                         setProperty((property) => {
                           return {
                             ...property,
-                            leaseValue: { ...property.leaseValue!, rent: e.target.value },
+                            rentValue: { ...property.rentValue!, rent: e.target.value },
                           };
                         })
                       }
@@ -468,14 +462,14 @@ const NewProperty: React.FC = () => {
                       borderRadius={'md'}
                       variant="flushed"
                       type="text"
-                      value={formatBrlPrice(stringToFloat(property.leaseValue?.securityDeposit))}
+                      value={formatBrlPrice(stringToFloat(property.rentValue?.securityDeposit))}
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
                         setProperty((state) => {
                           return {
                             ...state,
-                            leaseValue: { ...state.leaseValue!, securityDeposit: e.target.value },
+                            rentValue: { ...state.rentValue!, securityDeposit: e.target.value },
                           };
                         })
                       }
@@ -490,14 +484,14 @@ const NewProperty: React.FC = () => {
                       borderRadius={'md'}
                       variant="flushed"
                       type="text"
-                      value={property.leaseValue?.leaseDuration ?? ''}
+                      value={property.rentValue?.leaseDuration ?? ''}
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
                         setProperty((state) => {
                           return {
                             ...state,
-                            leaseValue: { ...state.leaseValue!, leaseDuration: e.target.value },
+                            rentValue: { ...state.rentValue!, leaseDuration: e.target.value },
                           };
                         })
                       }
@@ -662,7 +656,7 @@ const NewProperty: React.FC = () => {
                 <Input
                   bg="gray.100"
                   variant="flushed"
-                  value={property.imageUrl}
+                  value={property.imageBase64}
                   placeholder="Link para a imagem"
                   borderRadius={'md'}
                   _placeholder={{ color: 'gray.500', paddingLeft: '2' }}
@@ -670,20 +664,12 @@ const NewProperty: React.FC = () => {
                     setProperty((state) => {
                       return {
                         ...state,
-                        // imageUrl: 'https://bit.ly/2Z4KKcF',
                       };
                     })
                   }
                 />
               </InputGroup>
-              <Box p={'2'} alignContent="start">
-                {/* <Image
-                  style={{ borderRadius: '6px' }}
-                  src={'https://bit.ly/2Z4KKcF'}
-                  height={'200px'}
-                  width={'200px'}
-                /> */}
-              </Box>
+              <Box p={'2'} alignContent="start"></Box>
             </GridItem>
           </Grid>
         </Box>
@@ -691,8 +677,8 @@ const NewProperty: React.FC = () => {
           <Box paddingRight="8px">Adicionar Imóvel</Box> <FaDollarSign />
         </Button>
       </Container>
-    </SidebarWithHeader>
+    </>
   );
 };
-//http://preview.themeforest.net/item/realdeal-real-estate-react-template/full_screen_preview/26673743?_ga=2.76878610.683935755.1663884595-936946968.1663884595
+
 export default NewProperty;

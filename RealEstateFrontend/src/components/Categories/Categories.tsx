@@ -1,5 +1,6 @@
+import React from 'react';
+
 import { Box, useRadio, UseRadioProps } from '@chakra-ui/react';
-import { SetStateAction } from 'react';
 
 interface CategoriesProps extends UseRadioProps {
   children: React.ReactNode;

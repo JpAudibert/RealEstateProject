@@ -1,6 +1,8 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import React from 'react';
 
+import { ChakraProvider } from '@chakra-ui/react';
 import { extendTheme } from '@chakra-ui/react';
+import SidebarWithHeader from '../components/SideBar';
 
 const colors = {
   brand: {
@@ -50,10 +52,18 @@ const theme = extendTheme({
   },
 });
 
-const MyApp = ({ Component, pageProps }) => {
+interface AppProps {
+  Component: React.FC;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  pageProps: any;
+}
+
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <SidebarWithHeader>
+        <Component {...pageProps} />
+      </SidebarWithHeader>
     </ChakraProvider>
   );
 };

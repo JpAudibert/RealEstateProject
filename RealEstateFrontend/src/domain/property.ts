@@ -1,21 +1,18 @@
 interface NewProperty {
-  type: string;
-  imageUrl: string;
-  imageAlt: string;
-  name: string;
+  commercialType: string;
+  imageBase64: string;
+  title: string;
+  description: string;
   address: string;
   number: number;
   city: string;
   state: string;
-  zip: string;
+  zipCode: string;
   bedrooms: number;
   bathrooms: number;
-  squareFeet: number;
-  price: number;
+  squareFoot: number;
   garage: number;
-  description: string;
-  dateAdded: Date;
-  leaseValue?: LeaseValue;
+  rentValue?: RentValue;
   sellValue?: SellValue;
   amenities: Amenity[];
   images: PropertyImage[];
@@ -23,29 +20,27 @@ interface NewProperty {
 
 interface Property {
   id: number;
-  type: string;
-  imageUrl: string;
-  imageAlt: string;
-  name: string;
+  commercialType: string;
+  imageBase64: string;
+  title: string;
+  description: string;
   address: string;
   number: number;
   city: string;
   state: string;
-  zip: string;
+  zipCode: string;
   bedrooms: number;
   bathrooms: number;
-  squareFeet: number;
-  price: number;
+  squareFoot: number;
   garage: number;
-  description: string;
   dateAdded: Date;
-  leaseValue?: LeaseValue;
+  rentValue?: RentValue;
   sellValue?: SellValue;
   amenities: Amenity[];
   images: PropertyImage[];
 }
 
-interface LeaseValue {
+interface RentValue {
   rent: string;
   securityDeposit: string;
   leaseDuration: string;
@@ -90,7 +85,7 @@ const AMENITIES: Amenity[] = [
   { name: 'Porão', value: false },
 ];
 
-const INITIAL_LEASE_VALUE: LeaseValue = {
+const INITIAL_RENT_VALUE: RentValue = {
   rent: '0',
   securityDeposit: '0',
   leaseDuration: '0',
@@ -102,46 +97,42 @@ const INITIAL_SELL_VALUE: SellValue = {
 };
 
 const INITITAL_STATE: NewProperty = {
-  type: '',
-  imageUrl: '',
-  imageAlt: '',
-  name: '',
+  commercialType: '',
+  imageBase64: '',
+  title: '',
   address: '',
   number: 0,
   city: '',
   state: '',
-  zip: '',
+  zipCode: '',
   bedrooms: 0,
   bathrooms: 0,
-  squareFeet: 0,
-  price: 0,
+  squareFoot: 0,
   garage: 0,
   description: '',
-  dateAdded: new Date(),
-  leaseValue: INITIAL_LEASE_VALUE,
+  rentValue: INITIAL_RENT_VALUE,
   sellValue: INITIAL_SELL_VALUE,
   amenities: AMENITIES,
   images: [],
 };
+
 const INITITAL_PROPERTY_STATE: Property = {
   id: 0,
-  type: '',
-  imageUrl: '',
-  imageAlt: '',
-  name: '',
+  commercialType: '',
+  imageBase64: '',
+  title: '',
   address: '',
   number: 0,
   city: '',
   state: '',
-  zip: '',
+  zipCode: '',
   bedrooms: 0,
   bathrooms: 0,
-  squareFeet: 0,
-  price: 0,
+  squareFoot: 0,
   garage: 0,
   description: '',
   dateAdded: new Date(),
-  leaseValue: INITIAL_LEASE_VALUE,
+  rentValue: INITIAL_RENT_VALUE,
   sellValue: INITIAL_SELL_VALUE,
   amenities: AMENITIES,
   images: [],
@@ -150,8 +141,9 @@ const INITITAL_PROPERTY_STATE: Property = {
 export {
   INITITAL_PROPERTY_STATE,
   INITITAL_STATE,
-  INITIAL_LEASE_VALUE,
+  INITIAL_RENT_VALUE as INITIAL_LEASE_VALUE,
   INITIAL_SELL_VALUE,
   AMENITIES as amenities,
 };
-export type { NewProperty, Property, LeaseValue, SellValue, Amenity };
+
+export type { NewProperty, Property, RentValue, SellValue, Amenity };

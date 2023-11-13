@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import router from 'next/router';
-import SidebarWithHeader from '../components/SideBar';
-import HomeList from '../components/MainList/homeList';
+import ListCard from '../components/ListCard/ListCard';
 
 const Home: React.FC = () => {
   const [token, setToken] = useState<string>('');
@@ -17,12 +16,12 @@ const Home: React.FC = () => {
   }, [token]);
 
   return (
-    <SidebarWithHeader>
+    <>
       <Head>
         <title>Home - Buscar imóvel</title>
       </Head>
-      <HomeList />
-    </SidebarWithHeader>
+      <ListCard />
+    </>
   );
 };
 

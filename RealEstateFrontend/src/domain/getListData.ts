@@ -27,9 +27,9 @@ const getHouseData = async (id: number) => {
   return null;
 };
 
-const getLeaseValue = async (id: number) => {
+const getRentValue = async (id: number) => {
   try {
-    const response = await axios.get('/real-estate/leaseValue/' + id);
+    const response = await axios.get('/real-estate/rentValue/' + id);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -47,4 +47,4 @@ const getAmenity = async (id: number) => {
   return null;
 };
 
-export { getListData, getLeaseValue, getAmenity, getHouseData };
+export { getListData, getRentValue, getAmenity, getHouseData };

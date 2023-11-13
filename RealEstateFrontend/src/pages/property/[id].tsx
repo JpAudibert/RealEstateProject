@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { Badge, Box, Button, Flex, Image } from '@chakra-ui/react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-import SidebarWithHeader from '../../components/SideBar';
 import { getHouseData } from '../../domain/getListData';
 import { INITITAL_PROPERTY_STATE, Property } from '../../domain/property';
 import { formatBrlPrice } from '../../domain/formatPrice';
@@ -29,12 +28,15 @@ const Details: React.FC = () => {
   }, [setProperty, id]);
 
   const formattedPrice = useMemo(
-    () => formatBrlPrice(property?.price)?.concat(property?.leaseValue ? ' /mês' : ''),
+    () =>
+      formatBrlPrice(Number(property?.sellValue?.value ?? property.rentValue?.rent))?.concat(
+        property?.rentValue ? ' /mês' : '',
+      ),
     [property],
   );
 
   return (
-    <SidebarWithHeader>
+    <>
       <Head>
         <title>Detalhes do imóvel</title>
       </Head>
@@ -48,7 +50,7 @@ const Details: React.FC = () => {
           lineHeight="tight"
           noOfLines={1}
         >
-          {property?.name}
+          {property?.title}
         </Box>
       </Box>
       <Flex justifyContent="space-evenly">
@@ -98,7 +100,7 @@ const Details: React.FC = () => {
               <Box textAlign="center" fontSize="2xl" p="2">
                 <Flex flexDir="row" alignItems="center" justifyContent="center">
                   <FaSquare />
-                  <Box pl="1rem">{property?.squareFeet} m²</Box>
+                  <Box pl="1rem">{property?.squareFoot} m²</Box>
                 </Flex>
 
                 <Flex flexDir="row" alignItems="center" justifyContent="center">
@@ -157,7 +159,7 @@ const Details: React.FC = () => {
           </Box>
         </Flex>
       </Flex>
-    </SidebarWithHeader>
+    </>
   );
 };
 

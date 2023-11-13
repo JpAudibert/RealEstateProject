@@ -11,19 +11,12 @@ const ListCard: React.FC = () => {
   const [loadingForRent, setLoadingForRent] = useState<boolean>(true);
   const [type, setType] = useState<string>('Aluguel');
 
-  const handleSearchForSale = async () => {
-    setType('Venda');
-    setLoadingForSale(true);
-    handleSearch();
-    setLoadingForSale(false);
-  };
-
   const handleSearch = useCallback(async () => {
     const list = await getListData(type, search);
     const finalList = list.map((item) => {
       return {
         ...item,
-        price: Number(item.sellValue ? item.sellValue.value : item.leaseValue?.rent),
+        price: Number(item.sellValue ? item.sellValue.value : item.rentValue?.rent),
       };
     });
     setList(finalList);
@@ -34,6 +27,13 @@ const ListCard: React.FC = () => {
     setLoadingForRent(true);
     handleSearch();
     setLoadingForRent(false);
+  }, [handleSearch]);
+
+  const handleSearchForSale = useCallback(async () => {
+    setType('Venda');
+    setLoadingForSale(true);
+    handleSearch();
+    setLoadingForSale(false);
   }, [handleSearch]);
 
   useEffect(() => {

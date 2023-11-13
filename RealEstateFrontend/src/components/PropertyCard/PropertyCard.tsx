@@ -4,29 +4,26 @@ import Image from 'next/image';
 import router from 'next/router';
 import React from 'react';
 import { Property } from '../../domain/property';
+import { formatBrlPrice } from '../../domain/formatPrice';
 
 interface PropertyCardProps extends Property {
-  type: string;
+  commercialType: string;
 }
 
 const PropertyCard: React.FC<PropertyCardProps> = ({
   id,
-  imageUrl,
-  imageAlt,
+  imageBase64,
   city,
   bedrooms,
   bathrooms,
-  type,
-  name,
+  commercialType: type,
+  title: name,
   price,
   dateAdded,
 }) => {
   const stringBedrooms = bedrooms === 1 ? 'quatro' : 'quatros';
   const stringBathrooms = bathrooms === 1 ? 'banheiro' : 'banheiros';
-  const formattedPrice = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(price);
+  const formattedPrice = formatBrlPrice(price);
 
   const handleViewDetails = () => {
     router.push(`/property/${id}`);
@@ -60,7 +57,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
             New
           </Badge>
         )}
-        <Image src={imageUrl} alt={imageAlt} height="230px" width="400px" />
+        <Image src={imageBase64} alt={''} height={230} width={400} />
       </Box>
 
       <Box p="6">
