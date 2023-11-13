@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef, useState } from 'react';
 import {
   Flex,
@@ -29,19 +31,21 @@ const LoginPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const handleShowClick = () => setShowPassword(!showPassword);
+  const handleShowPasswordClick = () => setShowPassword(!showPassword);
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    localStorage.setItem('token', '123');
-    router.push('/home');
+    // localStorage.setItem('token', '123');
+    // router.push('/home');
 
     setLoading(true);
 
-    AuthService.login(emailRef.current?.value ?? '', passwordRef.current?.value ?? '').then(
+    // const email = emailRef.current?.value ?? '';
+    // const password = passwordRef.current?.value ?? '';
+
+    AuthService.login('admin', 'admin').then(
       () => {
         router.push('/home');
-        window.location.reload();
       },
       (error) => {
         setLoading(false);
@@ -85,7 +89,7 @@ const LoginPage = () => {
                     placeholder="Password"
                   />
                   <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                    <Button h="1.75rem" size="sm" onClick={handleShowPasswordClick}>
                       {showPassword ? 'Hide' : 'Show'}
                     </Button>
                   </InputRightElement>

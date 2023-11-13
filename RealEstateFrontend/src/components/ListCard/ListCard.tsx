@@ -1,10 +1,8 @@
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box, Button, Container, Input, Stack } from '@chakra-ui/react';
-import { useCallback, useEffect, useState } from 'react';
 import { getListData } from '../../domain/getListData';
 import { Property } from '../../domain/property';
 import PropertyCard from '../PropertyCard/PropertyCard';
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const ListCard: React.FC = () => {
   const [list, setList] = useState<Property[]>([]);
@@ -13,16 +11,6 @@ const ListCard: React.FC = () => {
   const [loadingForRent, setLoadingForRent] = useState<boolean>(true);
   const [type, setType] = useState<string>('Aluguel');
 
-  useEffect(() => {
-    handleSearchForRent();
-  }, []);
-
-  const handleSearchForRent = async () => {
-    setType('Aluguel');
-    setLoadingForRent(true);
-    handleSearch();
-    setLoadingForRent(false);
-  };
   const handleSearchForSale = async () => {
     setType('Venda');
     setLoadingForSale(true);
@@ -39,7 +27,18 @@ const ListCard: React.FC = () => {
       };
     });
     setList(finalList);
-  }, [type, setList, getListData]);
+  }, [type, search]);
+
+  const handleSearchForRent = useCallback(async () => {
+    setType('Aluguel');
+    setLoadingForRent(true);
+    handleSearch();
+    setLoadingForRent(false);
+  }, [handleSearch]);
+
+  useEffect(() => {
+    handleSearchForRent();
+  }, [handleSearchForRent]);
 
   return (
     <Container borderWidth="1px" maxW="container.xl" backgroundColor="gray.200" borderRadius="lg">

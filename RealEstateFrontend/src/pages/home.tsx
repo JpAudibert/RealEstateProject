@@ -8,7 +8,7 @@ const Home: React.FC = () => {
   const [token, setToken] = useState<string>('');
 
   useEffect(() => {
-    const storageToken = localStorage.getItem('token');
+    const storageToken = localStorage.getItem('user');
 
     if (storageToken === null) {
       router.push('/login');

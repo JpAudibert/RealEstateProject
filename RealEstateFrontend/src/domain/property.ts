@@ -123,6 +123,35 @@ const INITITAL_STATE: NewProperty = {
   amenities: AMENITIES,
   images: [],
 };
+const INITITAL_PROPERTY_STATE: Property = {
+  id: 0,
+  type: '',
+  imageUrl: '',
+  imageAlt: '',
+  name: '',
+  address: '',
+  number: 0,
+  city: '',
+  state: '',
+  zip: '',
+  bedrooms: 0,
+  bathrooms: 0,
+  squareFeet: 0,
+  price: 0,
+  garage: 0,
+  description: '',
+  dateAdded: new Date(),
+  leaseValue: INITIAL_LEASE_VALUE,
+  sellValue: INITIAL_SELL_VALUE,
+  amenities: AMENITIES,
+  images: [],
+};
 
-export { INITITAL_STATE, INITIAL_LEASE_VALUE, INITIAL_SELL_VALUE, AMENITIES as amenities };
+export {
+  INITITAL_PROPERTY_STATE,
+  INITITAL_STATE,
+  INITIAL_LEASE_VALUE,
+  INITIAL_SELL_VALUE,
+  AMENITIES as amenities,
+};
 export type { NewProperty, Property, LeaseValue, SellValue, Amenity };

@@ -1,308 +1,10 @@
 import axios from 'axios';
 import { Property } from './property';
-
-const DEFAULT_DATA: Property[] = [
-  {
-    id: 1,
-    imageUrl: '',
-    imageAlt: 'Rear view of modern home with pool',
-    type: 'Para Venda',
-    name: 'Casa de Praia em Guarujá',
-    address: 'Rua 1',
-    number: 1,
-    city: 'São Paulo',
-    state: 'SP',
-    zip: '00000-000',
-    bedrooms: 1,
-    bathrooms: 1,
-    squareFeet: 1,
-    price: 1000,
-    garage: 1,
-    description: 'Descrição 1',
-    dateAdded: new Date(),
-    leaseValue: {
-      rent: 'R$ 1,00',
-      securityDeposit: 'R$ 1,00',
-      leaseDuration: '12 meses',
-    },
-    amenities: [
-      { name: 'Ar Condicionado', value: true },
-      { name: 'Sótão', value: true },
-      { name: 'Piscina', value: true },
-      { name: 'Churrasqueira', value: true },
-    ],
-
-    images: [
-      {
-        url: '',
-        alt: 'Rear view of modern home with pool',
-      },
-    ],
-  },
-  {
-    id: 2,
-    imageUrl: '',
-    imageAlt: 'Rear view of modern home with pool',
-    type: 'Para Venda',
-    name: 'Casa de Praia em Guarujá',
-    address: 'Rua 1',
-    number: 1,
-    city: 'São Paulo',
-    state: 'SP',
-    zip: '00000-000',
-    bedrooms: 1,
-    bathrooms: 1,
-    squareFeet: 1,
-    price: 1000,
-    garage: 1,
-    description: 'Descrição 1',
-    dateAdded: new Date(),
-    leaseValue: {
-      rent: 'R$ 1,00',
-      securityDeposit: 'R$ 1,00',
-      leaseDuration: '12 meses',
-    },
-    amenities: [
-      { name: 'Ar Condicionado', value: true },
-      { name: 'Sótão', value: true },
-      { name: 'Piscina', value: true },
-      { name: 'Churrasqueira', value: true },
-    ],
-
-    images: [
-      {
-        url: '',
-        alt: 'Rear view of modern home with pool',
-      },
-    ],
-  },
-  {
-    id: 3,
-    imageUrl: '',
-    imageAlt: 'Rear view of modern home with pool',
-    type: 'Para Venda',
-    name: 'Casa de Praia em Guarujá',
-    address: 'Rua 1',
-    number: 1,
-    city: 'São Paulo',
-    state: 'SP',
-    zip: '00000-000',
-    bedrooms: 1,
-    bathrooms: 1,
-    squareFeet: 1,
-    price: 1000,
-    garage: 1,
-    description: 'Descrição 1',
-    dateAdded: new Date('2020-01-01 00:00:00'),
-    leaseValue: {
-      rent: 'R$ 1,00',
-      securityDeposit: 'R$ 1,00',
-      leaseDuration: '12 meses',
-    },
-    amenities: [
-      { name: 'Ar Condicionado', value: true },
-      { name: 'Sótão', value: true },
-      { name: 'Piscina', value: true },
-      { name: 'Churrasqueira', value: true },
-    ],
-
-    images: [
-      {
-        url: '',
-        alt: 'Rear view of modern home with pool',
-      },
-    ],
-  },
-  {
-    id: 4,
-    imageUrl: '',
-    imageAlt: 'Rear view of modern home with pool',
-    type: 'Para Venda',
-    name: 'Casa de Praia em Guarujá',
-    address: 'Rua 1',
-    number: 1,
-    city: 'São Paulo',
-    state: 'SP',
-    zip: '00000-000',
-    bedrooms: 1,
-    bathrooms: 1,
-    squareFeet: 1,
-    price: 1000,
-    garage: 1,
-    description: 'Descrição 1',
-    dateAdded: new Date(),
-    leaseValue: {
-      rent: 'R$ 1,00',
-      securityDeposit: 'R$ 1,00',
-      leaseDuration: '12 meses',
-    },
-    amenities: [
-      { name: 'Ar Condicionado', value: true },
-      { name: 'Sótão', value: true },
-      { name: 'Piscina', value: true },
-      { name: 'Churrasqueira', value: true },
-    ],
-
-    images: [
-      {
-        url: '',
-        alt: 'Rear view of modern home with pool',
-      },
-    ],
-  },
-  {
-    id: 5,
-    imageUrl: '',
-    imageAlt: 'Rear view of modern home with pool',
-    type: 'Para Venda',
-    name: 'Casa de Praia em Guarujá',
-    address: 'Rua 1',
-    number: 1,
-    city: 'São Paulo',
-    state: 'SP',
-    zip: '00000-000',
-    bedrooms: 1,
-    bathrooms: 1,
-    squareFeet: 1,
-    price: 1000,
-    garage: 1,
-    description: 'Descrição 1',
-    dateAdded: new Date(),
-    leaseValue: {
-      rent: 'R$ 1,00',
-      securityDeposit: 'R$ 1,00',
-      leaseDuration: '12 meses',
-    },
-    amenities: [
-      { name: 'Ar Condicionado', value: true },
-      { name: 'Sótão', value: true },
-      { name: 'Piscina', value: true },
-      { name: 'Churrasqueira', value: true },
-    ],
-
-    images: [
-      {
-        url: '',
-        alt: 'Rear view of modern home with pool',
-      },
-    ],
-  },
-  {
-    id: 6,
-    imageUrl: '',
-    imageAlt: 'Rear view of modern home with pool',
-    type: 'Para Venda',
-    name: 'Casa de Praia em Guarujá',
-    address: 'Rua 1',
-    number: 1,
-    city: 'São Paulo',
-    state: 'SP',
-    zip: '00000-000',
-    bedrooms: 1,
-    bathrooms: 1,
-    squareFeet: 1,
-    price: 1000,
-    garage: 1,
-    description: 'Descrição 1',
-    dateAdded: new Date(),
-    leaseValue: {
-      rent: 'R$ 1,00',
-      securityDeposit: 'R$ 1,00',
-      leaseDuration: '12 meses',
-    },
-    amenities: [
-      { name: 'Ar Condicionado', value: true },
-      { name: 'Sótão', value: true },
-      { name: 'Piscina', value: true },
-      { name: 'Churrasqueira', value: true },
-    ],
-
-    images: [
-      {
-        url: '',
-        alt: 'Rear view of modern home with pool',
-      },
-    ],
-  },
-  {
-    id: 7,
-    imageUrl: '',
-    imageAlt: 'Rear view of modern home with pool',
-    type: 'Para Venda',
-    name: 'Casa de Praia em Guarujá',
-    address: 'Rua 1',
-    number: 1,
-    city: 'São Paulo',
-    state: 'SP',
-    zip: '00000-000',
-    bedrooms: 1,
-    bathrooms: 1,
-    squareFeet: 1,
-    price: 1000,
-    garage: 1,
-    description: 'Descrição 1',
-    dateAdded: new Date('2020-01-01 00:00:00'),
-    leaseValue: {
-      rent: 'R$ 1,00',
-      securityDeposit: 'R$ 1,00',
-      leaseDuration: '12 meses',
-    },
-    amenities: [
-      { name: 'Ar Condicionado', value: true },
-      { name: 'Sótão', value: true },
-      { name: 'Piscina', value: true },
-      { name: 'Churrasqueira', value: true },
-    ],
-    images: [
-      {
-        url: '',
-        alt: 'Rear view of modern home with pool',
-      },
-    ],
-  },
-  {
-    id: 8,
-    imageUrl: '',
-    imageAlt: 'Rear view of modern home with pool',
-    type: 'Para Venda',
-    name: 'Casa de Praia em Guarujá',
-    address: 'Rua 1',
-    number: 1,
-    city: 'São Paulo',
-    state: 'SP',
-    zip: '00000-000',
-    bedrooms: 1,
-    bathrooms: 1,
-    squareFeet: 1,
-    price: 1000,
-    garage: 1,
-    description: 'Descrição 1',
-    dateAdded: new Date(),
-    leaseValue: {
-      rent: 'R$ 1,00',
-      securityDeposit: 'R$ 1,00',
-      leaseDuration: '12 meses',
-    },
-    amenities: [
-      { name: 'Ar Condicionado', value: true },
-      { name: 'Sótão', value: true },
-      { name: 'Piscina', value: true },
-      { name: 'Churrasqueira', value: true },
-    ],
-    images: [
-      {
-        url: '',
-        alt: 'Rear view of modern home with pool',
-      },
-    ],
-  },
-];
+import { DEFAULT_DATA } from './testConstants';
 
 const getListData = async (type: string, filter: string): Promise<Property[]> => {
   try {
-    const response = await axios.get(
-      `http://localhost:8888/api/property?type=${type}&filter=${filter}`,
-    );
+    const response = await axios.get(`/real-estate/property?type=${type}&filter=${filter}`);
 
     if (response.data.length === 0) {
       return DEFAULT_DATA;
@@ -317,7 +19,7 @@ const getListData = async (type: string, filter: string): Promise<Property[]> =>
 
 const getHouseData = async (id: number) => {
   try {
-    const response = await axios.get('http://localhost:8888/api/property/' + id);
+    const response = await axios.get('/real-estate/property/' + id);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -327,7 +29,7 @@ const getHouseData = async (id: number) => {
 
 const getLeaseValue = async (id: number) => {
   try {
-    const response = await axios.get('http://localhost:8888/api/leaseValue/' + id);
+    const response = await axios.get('/real-estate/leaseValue/' + id);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -337,7 +39,7 @@ const getLeaseValue = async (id: number) => {
 
 const getAmenity = async (id: number) => {
   try {
-    const response = await axios.get('http://localhost:8888/api/amenity/' + id);
+    const response = await axios.get('/real-estate/amenity/' + id);
     return response.data;
   } catch (error) {
     console.log(error);

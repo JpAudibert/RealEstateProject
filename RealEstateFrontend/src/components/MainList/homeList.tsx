@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ListCard from '../ListCard/ListCard';
 
 const HomeList: React.FC = () => {

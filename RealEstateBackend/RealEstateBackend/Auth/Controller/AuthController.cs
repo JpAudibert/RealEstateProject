@@ -8,9 +8,9 @@ namespace RealEstateBackend.Auth.Controllers
     public class AuthController : Controller
     {
         [HttpPost]
-        public IActionResult Auth(string username, string password)
+        public IActionResult Auth([FromBody] AuthRequest request)
         {
-            if (username == "admin" && password == "admin")
+            if (request.Username == "admin" && request.Password == "admin")
             {
                 var token = TokenServices.GenerateToken(new Users.Models.User());
                 return Ok(token);
@@ -20,3 +20,5 @@ namespace RealEstateBackend.Auth.Controllers
         }
     }
 }
+
+public record AuthRequest(string Username, string Password);

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Box,
   Button,
@@ -31,7 +33,16 @@ import Categories from '../components/Categories/Categories';
 import SidebarWithHeader from '../components/SideBar';
 import brazilStates from '../domain/brazilStates';
 import formatCep from '../domain/cepFormatter';
-import { amenities, Amenity, INITITAL_STATE, NewProperty } from '../domain/property';
+import {
+  amenities,
+  Amenity,
+  INITITAL_STATE,
+  LeaseValue,
+  NewProperty,
+  SellValue,
+} from '../domain/property';
+import stringToFloat from '../domain/stringToFloat';
+import { formatBrlPrice } from '../domain/formatPrice';
 
 interface Option {
   value: string;
@@ -93,28 +104,24 @@ const NewProperty: React.FC = () => {
 
   const handleSubmit = useCallback(() => {
     if (validateForm()) {
-      const leaseRentValue =
-        Number.parseFloat(property.leaseValue?.rent?.replace(/\D/g, '') ?? '') / 100;
-      const leaseSecurityDeposit =
-        Number.parseFloat(property.leaseValue?.securityDeposit?.replace(/\D/g, '') ?? '') / 100;
-      const sellValuePrice =
-        Number.parseFloat(property.sellValue?.value.replace(/\D/g, '') ?? '') / 100;
-      const sellSecurityDeposit =
-        Number.parseFloat(property.sellValue?.securityDeposit.replace(/\D/g, '') ?? '') / 100;
+      const leaseRentValue = stringToFloat(property.leaseValue?.rent);
+      const leaseSecurityDeposit = stringToFloat(property.leaseValue?.securityDeposit);
+      const sellValuePrice = stringToFloat(property.sellValue?.value);
+      const sellSecurityDeposit = stringToFloat(property.sellValue?.securityDeposit);
 
-      const sellValue = {
+      const sellValue: SellValue = {
         value: sellValuePrice.toString(),
         securityDeposit: sellSecurityDeposit.toString(),
       };
-      const leaseValue = {
+      const leaseValue: LeaseValue = {
         rent: leaseRentValue.toString(),
         securityDeposit: leaseSecurityDeposit.toString(),
-        leaseDuration: property.leaseValue?.leaseDuration,
+        leaseDuration: property.leaseValue?.leaseDuration ?? '',
       };
       const newPropertyWithValues = {
         ...property,
-        sellValue: radioValue === 'Venda' ? sellValue : null,
-        leaseValue: radioValue !== 'Venda' ? leaseValue : null,
+        sellValue: radioValue === 'Venda' ? sellValue : undefined,
+        leaseValue: radioValue !== 'Venda' ? leaseValue : undefined,
       };
 
       const propertyToSave: NewProperty = {
@@ -128,13 +135,10 @@ const NewProperty: React.FC = () => {
             url: property.imageUrl,
             alt: '',
           },
-          {
-            url: 'https://bit.ly/2Z4KKcF',
-            alt: '',
-          },
         ],
       };
-      axios.post('/api/property', propertyToSave).then(() => {
+
+      axios.post('/real-state/property', propertyToSave).then(() => {
         router.push('/home');
       });
     }
@@ -214,7 +218,7 @@ const NewProperty: React.FC = () => {
                   _placeholder={{ color: 'gray.500' }}
                   onChange={(e) =>
                     setProperty((state) => {
-                      return { ...state, bedrooms: Number.parseInt(e.target.value) };
+                      return { ...state, bedrooms: Number(e.target.value) };
                     })
                   }
                 />
@@ -235,7 +239,7 @@ const NewProperty: React.FC = () => {
                   _placeholder={{ color: 'gray.500' }}
                   onChange={(e) =>
                     setProperty((state) => {
-                      return { ...state, bathrooms: Number.parseInt(e.target.value) };
+                      return { ...state, bathrooms: Number(e.target.value) };
                     })
                   }
                 />
@@ -255,7 +259,7 @@ const NewProperty: React.FC = () => {
                   _placeholder={{ color: 'gray.500' }}
                   onChange={(e) =>
                     setProperty((state) => {
-                      return { ...state, squareFeet: Number.parseFloat(e.target.value) };
+                      return { ...state, squareFeet: Number(e.target.value) };
                     })
                   }
                 />
@@ -275,7 +279,7 @@ const NewProperty: React.FC = () => {
                   _placeholder={{ color: 'gray.500' }}
                   onChange={(e) =>
                     setProperty((state) => {
-                      return { ...state, garage: Number.parseInt(e.target.value) };
+                      return { ...state, garage: Number(e.target.value) };
                     })
                   }
                 />
@@ -390,7 +394,7 @@ const NewProperty: React.FC = () => {
                   _placeholder={{ color: 'gray.500' }}
                   onChange={(e) =>
                     setProperty((state) => {
-                      return { ...state, number: Number.parseInt(e.target.value) };
+                      return { ...state, number: Number(e.target.value) };
                     })
                   }
                 />
@@ -433,12 +437,7 @@ const NewProperty: React.FC = () => {
                 </GridItem>
                 <GridItem colSpan={4}>
                   <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      color="gray.300"
-                      fontSize="1.2em"
-                      children="$"
-                    />
+                    <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em" />
                     <Input
                       bg="gray.100"
                       borderRadius={'md'}
@@ -447,16 +446,14 @@ const NewProperty: React.FC = () => {
                       value={new Intl.NumberFormat('pt-BR', {
                         style: 'currency',
                         currency: 'BRL',
-                      }).format(
-                        Number.parseFloat(property.leaseValue?.rent?.replace(/\D/g, '')) / 100,
-                      )}
+                      }).format(stringToFloat(property.leaseValue?.rent))}
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
-                        setProperty((state) => {
+                        setProperty((property) => {
                           return {
-                            ...state,
-                            leaseValue: { ...state.leaseValue, rent: e.target.value },
+                            ...property,
+                            leaseValue: { ...property.leaseValue!, rent: e.target.value },
                           };
                         })
                       }
@@ -465,32 +462,20 @@ const NewProperty: React.FC = () => {
                 </GridItem>
                 <GridItem colSpan={4}>
                   <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      color="gray.300"
-                      fontSize="1.2em"
-                      children="$"
-                    />
+                    <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em" />
                     <Input
                       bg="gray.100"
                       borderRadius={'md'}
                       variant="flushed"
                       type="text"
-                      value={new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
-                      }).format(
-                        Number.parseFloat(
-                          property.leaseValue?.securityDeposit?.replace(/\D/g, ''),
-                        ) / 100,
-                      )}
+                      value={formatBrlPrice(stringToFloat(property.leaseValue?.securityDeposit))}
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
                         setProperty((state) => {
                           return {
                             ...state,
-                            leaseValue: { ...state.leaseValue, securityDeposit: e.target.value },
+                            leaseValue: { ...state.leaseValue!, securityDeposit: e.target.value },
                           };
                         })
                       }
@@ -509,10 +494,10 @@ const NewProperty: React.FC = () => {
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
-                        setProperty((state: string) => {
+                        setProperty((state) => {
                           return {
                             ...state,
-                            leaseValue: { ...state.leaseValue, leaseDuration: e.target.value },
+                            leaseValue: { ...state.leaseValue!, leaseDuration: e.target.value },
                           };
                         })
                       }
@@ -550,30 +535,20 @@ const NewProperty: React.FC = () => {
                 </GridItem>
                 <GridItem colSpan={6}>
                   <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      color="gray.300"
-                      fontSize="1.2em"
-                      children="$"
-                    />
+                    <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em" />
                     <Input
                       bg="gray.100"
                       borderRadius={'md'}
                       variant="flushed"
                       type="text"
-                      value={new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
-                      }).format(
-                        Number.parseFloat(property.sellValue?.value?.replace(/\D/g, '')) / 100,
-                      )}
+                      value={formatBrlPrice(stringToFloat(property.sellValue?.value))}
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
                         setProperty((state) => {
                           return {
                             ...state,
-                            sellValue: { ...state.sellValue, value: e.target.value },
+                            sellValue: { ...state.sellValue!, value: e.target.value },
                           };
                         })
                       }
@@ -582,31 +557,20 @@ const NewProperty: React.FC = () => {
                 </GridItem>
                 <GridItem colSpan={6}>
                   <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      color="gray.300"
-                      fontSize="1.2em"
-                      children="$"
-                    />
+                    <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em" />
                     <Input
                       bg="gray.100"
                       borderRadius={'md'}
                       variant="flushed"
                       type="text"
-                      value={new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
-                      }).format(
-                        Number.parseFloat(property.sellValue?.securityDeposit?.replace(/\D/g, '')) /
-                          100,
-                      )}
+                      value={formatBrlPrice(stringToFloat(property.sellValue?.securityDeposit))}
                       placeholder="Aluguel"
                       _placeholder={{ color: 'gray.500' }}
                       onChange={(e) =>
                         setProperty((state) => {
                           return {
                             ...state,
-                            sellValue: { ...state.sellValue, securityDeposit: e.target.value },
+                            sellValue: { ...state.sellValue!, securityDeposit: e.target.value },
                           };
                         })
                       }
@@ -702,7 +666,7 @@ const NewProperty: React.FC = () => {
                   placeholder="Link para a imagem"
                   borderRadius={'md'}
                   _placeholder={{ color: 'gray.500', paddingLeft: '2' }}
-                  onChange={(e) =>
+                  onChange={() =>
                     setProperty((state) => {
                       return {
                         ...state,
