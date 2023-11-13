@@ -1,12 +1,9 @@
-﻿using RealEstateBackend.Infrastructure.Amenities.Models;
-using RealEstateBackend.Infrastructure.RealEstateKinds.Models;
-
-namespace RealEstateBackend.Infrastructure.RealEstates.Models
+﻿namespace RealEstateBackend.RealEstates.InputModels
 {
-    public sealed class RealEstate
+    public class RealEstateInputModel
     {
         public Guid Id { get; } = Guid.NewGuid();
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
         public string ComercialType { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
@@ -19,11 +16,7 @@ namespace RealEstateBackend.Infrastructure.RealEstates.Models
         public double PrivateSquareFoot { get; set; }
         public double SellValue { get; set; }
         public double RentValue { get; set; }
-        public int Bedrooms { get; set; }
-        public int Bathrooms { get; set; }
-        public int Garage { get; set; }
-        public RealEstateKind RealEstateKind { get; set; } = new();
+        public double Price { get; set; }
         public Guid RealEstateKindId { get; set; }
-        public ICollection<Amenity> Amenities { get; set; } = new List<Amenity>();
     }
 }

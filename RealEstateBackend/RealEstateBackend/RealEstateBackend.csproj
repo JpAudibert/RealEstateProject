@@ -31,10 +31,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="RealEstates\InputModels\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\RealEstateBackend.Infrastructure\RealEstateBackend.Infrastructure.csproj" />
 		<ProjectReference Include="..\RealEstateBackend.Services\RealEstateBackend.Services.csproj" />
 	</ItemGroup>

@@ -24,11 +24,14 @@ namespace RealEstateBackend.Infrastructure.RealEstates.Types
             builder.Property(x => x.PrivateSquareFoot).IsRequired().HasColumnType("double precision");
             builder.Property(x => x.SellValue).IsRequired().HasColumnType("double precision");
             builder.Property(x => x.RentValue).IsRequired().HasColumnType("double precision");
-            builder.Property(x => x.Price).IsRequired().HasColumnType("double precision");
             builder.HasOne(x => x.RealEstateKind)
                 .WithMany(x => x.RealEstates)
                 .HasForeignKey(x => x.RealEstateKindId)
                 .HasPrincipalKey(x => x.Id);
+
+            builder.HasMany(x => x.Amenities)
+                .WithMany(x => x.RealEstates)
+                .UsingEntity(x => x.ToTable("realestatesamenities"));
 
             builder.Property<DateTime>("CreatedAt").ValueGeneratedOnAdd().HasDefaultValueSql("Now()");
             builder.Property<DateTime>("UpdatedAt").ValueGeneratedOnAddOrUpdate().HasDefaultValueSql("Now()");
