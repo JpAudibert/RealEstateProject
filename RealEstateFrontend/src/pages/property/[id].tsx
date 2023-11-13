@@ -29,7 +29,7 @@ const Details: React.FC = () => {
 
   const formattedPrice = useMemo(
     () =>
-      formatBrlPrice(Number(property?.sellValue?.value ?? property.rentValue?.rent))?.concat(
+      formatBrlPrice(Number(property?.sellValue?.value ?? property?.rentValue?.rent))?.concat(
         property?.rentValue ? ' /mês' : '',
       ),
     [property],

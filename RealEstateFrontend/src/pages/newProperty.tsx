@@ -42,6 +42,7 @@ import {
 } from '../domain/property';
 import stringToFloat from '../domain/stringToFloat';
 import { formatBrlPrice } from '../domain/formatPrice';
+import { registerNewProperty } from '../domain/registerService';
 
 interface Option {
   value: string;
@@ -100,41 +101,9 @@ const NewProperty: React.FC = () => {
 
   const handleSubmit = useCallback(() => {
     if (validateForm()) {
-      const leaseRentValue = stringToFloat(property.rentValue?.rent);
-      const leaseSecurityDeposit = stringToFloat(property.rentValue?.securityDeposit);
-      const sellValuePrice = stringToFloat(property.sellValue?.value);
-      const sellSecurityDeposit = stringToFloat(property.sellValue?.securityDeposit);
-
-      const sellValue: SellValue = {
-        value: sellValuePrice.toString(),
-        securityDeposit: sellSecurityDeposit.toString(),
-      };
-      const rentValue: RentValue = {
-        rent: leaseRentValue.toString(),
-        securityDeposit: leaseSecurityDeposit.toString(),
-        leaseDuration: property.rentValue?.leaseDuration ?? '',
-      };
-      const newPropertyWithValues = {
-        ...property,
-        sellValue: radioValue === 'Venda' ? sellValue : undefined,
-        rentValue: radioValue !== 'Venda' ? rentValue : undefined,
-      };
-
-      const propertyToSave: NewProperty = {
-        ...newPropertyWithValues,
-        commercialType: radioValue,
-        amenities: amenitiesState.filter((amenity) => amenity.value),
-        images: [
-          {
-            url: property.imageBase64,
-            alt: '',
-          },
-        ],
-      };
-
-      axios.post('/real-state/property', propertyToSave).then(() => {
-        router.push('/home');
-      });
+      registerNewProperty(property, radioValue, amenitiesState).then((e) =>
+        router.push(`/property/${e.data.id}`),
+      );
     }
     setButtonPressed(true);
   }, [validateForm, property, radioValue, amenitiesState]);

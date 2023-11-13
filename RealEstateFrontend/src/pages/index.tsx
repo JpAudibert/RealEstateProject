@@ -1,14 +1,11 @@
-'use client';
-
-import { useRouter } from 'next/router';
 import React from 'react';
 
 const Index: React.FC = () => {
-  const router = useRouter();
+  return null;
+};
 
-  router.push('/home');
-
-  return <div>Index</div>;
+export const getServerSideProps = async () => {
+  return { redirect: { destination: '/home', permanent: false } };
 };
 
 export default Index;

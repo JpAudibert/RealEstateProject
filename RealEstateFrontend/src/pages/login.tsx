@@ -20,11 +20,12 @@ import {
 import { FaUserAlt, FaLock, FaUnlock } from 'react-icons/fa';
 import router from 'next/router';
 import AuthService from '../domain/auth/auth';
+import { NextPage } from 'next';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-const LoginPage = () => {
+const LoginPage: NextPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 

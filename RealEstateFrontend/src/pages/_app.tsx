@@ -3,6 +3,7 @@ import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { extendTheme } from '@chakra-ui/react';
 import SidebarWithHeader from '../components/SideBar';
+import { useRouter } from 'next/router';
 
 const colors = {
   brand: {
@@ -59,6 +60,16 @@ interface AppProps {
 }
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const router = useRouter();
+
+  if (router.pathname === '/login') {
+    return (
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    );
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <SidebarWithHeader>
