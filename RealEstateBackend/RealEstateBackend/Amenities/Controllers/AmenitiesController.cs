@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RealEstateBackend.Amenities.InputModels;
-using RealEstateBackend.Amenities.Models;
-using RealEstateBackend.EF.Interfaces;
+using RealEstateBackend.Infrastructure.Amenities.Models;
+using RealEstateBackend.Infrastructure.EF.Interfaces;
 
 namespace RealEstateBackend.Amenities.Controllers
 {
@@ -77,25 +77,6 @@ namespace RealEstateBackend.Amenities.Controllers
             _logger.LogInformation("Amenity deleted ({id})", id);
 
             return NoContent();
-        }
-
-        [HttpPost("v1/createmany")]
-        public async Task<IActionResult> Populate()
-        {
-            List<Amenity> list = new()
-            {
-                new Amenity("Piscina"),
-                new Amenity("Churrasqueira"),
-                new Amenity("Microondas"),
-                new Amenity("Mobília"),
-                new Amenity("Jaridm")
-            };
-
-            _logger.LogDebug("Creating many amenities");
-
-            await _amenitiesRepository.CreateMany(list);
-
-            return (Ok(list));
         }
     }
 }
