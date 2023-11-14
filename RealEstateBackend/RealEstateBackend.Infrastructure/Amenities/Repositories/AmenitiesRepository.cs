@@ -72,5 +72,12 @@ namespace RealEstateBackend.Infrastructure.Amenities.Repositories
 
             return updatedAmenity!;
         }
+
+        public async Task<IEnumerable<Amenity>> Get(ICollection<Guid> ids)
+        {
+            _logger.LogInformation("Getting amenities: {ids}", JsonConvert.SerializeObject(ids));
+
+            return await _context.Amenities.Where(x => ids.Contains(x.Id)).ToListAsync();
+        }
     }
 }

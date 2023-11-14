@@ -51,6 +51,11 @@ namespace RealEstateBackend.Infrastructure.RealEstateKinds.Repositories
             return await _context.RealEstateKinds.FindAsync(id) ?? new RealEstateKind();
         }
 
+        public Task<IEnumerable<RealEstateKind>> Get(ICollection<Guid> ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<RealEstateKind>> GetAll()
         {
             _logger.LogInformation("Retrieving all real estate kinds");

@@ -7,10 +7,13 @@ using RealEstateBackend.Infrastructure.EF;
 using RealEstateBackend.Infrastructure.EF.Interfaces;
 using RealEstateBackend.Infrastructure.RealEstateKinds.Models;
 using RealEstateBackend.Infrastructure.RealEstateKinds.Repositories;
+using RealEstateBackend.Infrastructure.RealEstates.Models;
+using RealEstateBackend.Infrastructure.RealEstates.Repositories;
 using RealEstateBackend.Services.Auth;
 using Serilog;
 using Steeltoe.Management.Endpoint;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +21,10 @@ builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -26,6 +32,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRepository<Amenity>, AmenitiesRepository>();
 builder.Services.AddScoped<IRepository<RealEstateKind>, RealEstateKindsRepository>();
+builder.Services.AddScoped<IRepository<RealEstate>, RealEstatesRepository>();
 
 var key = Encoding.ASCII.GetBytes(Key.Secret);
 
