@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RealEstateBackend.Amenities.Controllers.AmenitiesController">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAIAEAAEAEAEAAAAAAAAA=</HashCode>
+      <FileName>Amenities\Controllers\AmenitiesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateBackend.Amenities.InputModels.AmenitiesInputModel">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Amenities\InputModels\AmenitiesInputModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateBackend.Auth.Controllers.AuthController">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Auth\Controllers\AuthController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateBackend.RealEstateKinds.Controllers.RealEstateKindsController">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQABAAAAAAIAAAAQAAAAAAAIAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>RealEstateKinds\Controllers\RealEstateKindsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateBackend.RealEstateKinds.InputModels.RealEstateKindsInputModel">
+    <Position X="10" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RealEstateKinds\InputModels\RealEstateKindsInputModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateBackend.RealEstates.Controllers.RealEstatesController">
+    <Position X="5.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAAAAAAAAAAAAAAAIAEAAEAAAAAAQAAAQAA=</HashCode>
+      <FileName>RealEstates\Controllers\RealEstatesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealEstateBackend.RealEstates.InputModels.RealEstateInputModel">
+    <Position X="3.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAEAAACgAogAEAYEEAEAAAAAAAAAAALBAAABAAAAAA=</HashCode>
+      <FileName>RealEstates\InputModels\RealEstateInputModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Arial" Size="8" />
+</ClassDiagram>
