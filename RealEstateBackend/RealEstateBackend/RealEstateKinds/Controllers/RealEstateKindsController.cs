@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RealEstateBackend.EF.Interfaces;
-using RealEstateBackend.RealEstateTypes.InputModels;
-using RealEstateBackend.RealEstateTypes.Models;
+using RealEstateBackend.Infrastructure.EF.Interfaces;
+using RealEstateBackend.Infrastructure.RealEstateKinds.Models;
+using RealEstateBackend.RealEstateKinds.InputModels;
 
 namespace RealEstateBackend.RealEstateKinds.Controllers
 {
@@ -92,11 +92,7 @@ namespace RealEstateBackend.RealEstateKinds.Controllers
         {
             List<RealEstateKind> list = new()
             {
-                new RealEstateKind("Terreno"),
-                new RealEstateKind("Casa"),
-                new RealEstateKind("Apartamento"),
-                new RealEstateKind("Área Rural"),
-                new RealEstateKind("Sala Comercial")
+                
             };
 
             _logger.LogDebug("Creating many Real Estate Kinds");

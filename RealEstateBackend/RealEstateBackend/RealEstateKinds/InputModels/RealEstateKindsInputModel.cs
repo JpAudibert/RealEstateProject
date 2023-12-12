@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RealEstateBackend.RealEstateTypes.InputModels
+namespace RealEstateBackend.RealEstateKinds.InputModels
 {
     public class RealEstateKindsInputModel
     {
