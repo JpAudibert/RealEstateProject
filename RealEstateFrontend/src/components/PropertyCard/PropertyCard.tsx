@@ -4,7 +4,6 @@ import Image from 'next/image';
 import router from 'next/router';
 import React from 'react';
 import { Property } from '../../domain/property';
-import { formatBrlPrice } from '../../domain/formatPrice';
 
 interface PropertyCardProps extends Property {
   commercialType: string;
@@ -18,12 +17,13 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   bathrooms,
   commercialType: type,
   title: name,
-  price,
+  rentValue,
+  sellValue,
   dateAdded,
 }) => {
   const stringBedrooms = bedrooms === 1 ? 'quatro' : 'quatros';
   const stringBathrooms = bathrooms === 1 ? 'banheiro' : 'banheiros';
-  const formattedPrice = formatBrlPrice(price);
+  const formattedPrice = rentValue?.rent || sellValue?.value || 'Consulte';
 
   const handleViewDetails = () => {
     router.push(`/property/${id}`);

@@ -24,7 +24,7 @@ const getHouseData = async (id: number) => {
   } catch (error) {
     console.log(error);
   }
-  return null;
+  return DEFAULT_DATA.find((property) => property.id === id);
 };
 
 const getRentValue = async (id: number) => {
