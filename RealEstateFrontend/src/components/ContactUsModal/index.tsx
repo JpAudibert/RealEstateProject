@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import {
   Button,
@@ -21,34 +21,46 @@ interface ContactUsModalProps {
 }
 
 const ContactUsModal: React.FC<ContactUsModalProps> = ({ isOpen, onClose }) => {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+
   const initialRef = useRef(null);
 
   const handleSubmit = useCallback(() => {
-    console.log('submit');
+    console.log('submit', name, email, message);
     onClose();
-  }, [onClose]);
+  }, [email, message, name, onClose]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
+    <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <form onSubmit={handleSubmit}>
           <ModalHeader>Entre em Contato</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl isRequired>
               <FormLabel>Nome Completo</FormLabel>
-              <Input ref={initialRef} placeholder="Nome Completo" />
+              <Input
+                ref={initialRef}
+                placeholder="Nome Completo"
+                onChange={(e) => setName(e.target.value)}
+              />
             </FormControl>
 
             <FormControl mt={4} isRequired>
               <FormLabel>Email</FormLabel>
-              <Input placeholder="Email" inputMode="email" />
+              <Input
+                placeholder="test@test.com"
+                inputMode="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </FormControl>
 
             <FormControl mt={4} isRequired>
               <FormLabel>Mensagem</FormLabel>
-              <Textarea placeholder="Mensagem" />
+              <Textarea placeholder="Mensagem" onChange={(e) => setMessage(e.target.value)} />
             </FormControl>
           </ModalBody>
 
@@ -58,9 +70,9 @@ const ContactUsModal: React.FC<ContactUsModalProps> = ({ isOpen, onClose }) => {
             </Button>
             <Button onClick={onClose}>Cancelar</Button>
           </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </form>
+        </form>
+      </ModalContent>
+    </Modal>
   );
 };
 
