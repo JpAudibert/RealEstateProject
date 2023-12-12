@@ -18,7 +18,8 @@ export const DEFAULT_DATA: Property[] = [
     bathrooms: 1,
     squareFoot: 1,
     garage: 1,
-    description: 'Descrição 1',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, eget aliquam nis',
     dateAdded: new Date(),
     rentValue: {
       rent: 'R$ 1,00',
@@ -53,7 +54,8 @@ export const DEFAULT_DATA: Property[] = [
     bathrooms: 1,
     squareFoot: 1,
     garage: 1,
-    description: 'Descrição 1',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, eget aliquam nis',
     dateAdded: new Date(),
     rentValue: {
       rent: 'R$ 1,00',

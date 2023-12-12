@@ -4,14 +4,16 @@ import { FaBath, FaBed, FaCar, FaSquare } from 'react-icons/fa';
 import Head from 'next/head';
 import { Carousel } from 'react-responsive-carousel';
 import { useRouter } from 'next/router';
-import { Badge, Box, Button, Flex, Image } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Image, useDisclosure } from '@chakra-ui/react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { getHouseData } from '../../domain/getListData';
 import { INITITAL_PROPERTY_STATE, Property } from '../../domain/property';
-import { formatBrlPrice } from '../../domain/formatPrice';
+import ContactUsModal from '../../components/ContactUsModal';
 
 const Details: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [property, setProperty] = useState<Property>(INITITAL_PROPERTY_STATE);
 
   const router = useRouter();
@@ -28,10 +30,7 @@ const Details: React.FC = () => {
   }, [setProperty, id]);
 
   const formattedPrice = useMemo(
-    () =>
-      formatBrlPrice(Number(property?.sellValue?.value ?? property?.rentValue?.rent))?.concat(
-        property?.rentValue ? ' /mês' : '',
-      ),
+    () => property?.sellValue?.value ?? property?.rentValue?.rent,
     [property],
   );
 
@@ -80,34 +79,38 @@ const Details: React.FC = () => {
               {property?.description}
             </Box>
 
-            <Flex flexDir="row" justifyContent="space-around">
-              <Box alignItems="center" fontSize="2xl" p="2">
-                <Box>
-                  <Flex flexDir="row" alignItems="center" justifyContent="center">
-                    <FaBed />
-                    <Box pl="1rem">{property?.bedrooms} quartos</Box>
-                  </Flex>
-                </Box>
-
-                <Box textAlign="center" fontSize="2xl">
-                  <Flex flexDir="row" alignItems="center" justifyContent="center">
-                    <FaBath />
-                    <Box pl="1rem">{property?.bathrooms} banheiros</Box>
-                  </Flex>
-                </Box>
-              </Box>
-
-              <Box textAlign="center" fontSize="2xl" p="2">
+            <Flex flexDir="row" justifyContent="space-around" fontSize="2xl" p="2">
+              <Box>
                 <Flex flexDir="row" alignItems="center" justifyContent="center">
-                  <FaSquare />
-                  <Box pl="1rem">{property?.squareFoot} m²</Box>
-                </Flex>
-
-                <Flex flexDir="row" alignItems="center" justifyContent="center">
-                  <FaCar />
-                  <Box pl="1rem">{property?.garage} vagas</Box>
+                  <Box pl="1rem" m="2">
+                    {property?.bedrooms}
+                  </Box>
+                  <FaBed />
                 </Flex>
               </Box>
+
+              <Box textAlign="center" fontSize="2xl">
+                <Flex flexDir="row" alignItems="center" justifyContent="center">
+                  <Box pl="1rem" m="2">
+                    {property?.bathrooms}
+                  </Box>
+                  <FaBath />
+                </Flex>
+              </Box>
+
+              <Flex flexDir="row" alignItems="center" justifyContent="center">
+                <Box pl="1rem" m="2">
+                  {property?.squareFoot}m²
+                </Box>
+                <FaSquare />
+              </Flex>
+
+              <Flex flexDir="row" alignItems="center" justifyContent="center">
+                <Box pl="1rem" m="2">
+                  {property?.garage}
+                </Box>
+                <FaCar />
+              </Flex>
             </Flex>
           </Box>
 
@@ -142,16 +145,7 @@ const Details: React.FC = () => {
             >
               <div>
                 {formattedPrice}
-                <Button
-                  colorScheme="teal"
-                  variant="solid"
-                  size="sm"
-                  ml="4"
-                  onClick={() => {
-                    console.log('oi');
-                    router.push('/devs');
-                  }}
-                >
+                <Button colorScheme="teal" variant="solid" size="sm" ml="4" onClick={onOpen}>
                   Entre em contato
                 </Button>
               </div>
@@ -159,6 +153,7 @@ const Details: React.FC = () => {
           </Box>
         </Flex>
       </Flex>
+      <ContactUsModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
